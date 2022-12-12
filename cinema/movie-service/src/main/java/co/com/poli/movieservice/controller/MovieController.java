@@ -1,10 +1,10 @@
-package co.com.poli.userservice.controller;
+package co.com.poli.movieservice.controller;
 
-import co.com.poli.userservice.helpers.Response;
-import co.com.poli.userservice.helpers.ResponseBuild;
-import co.com.poli.userservice.persistence.entity.User;
-import co.com.poli.userservice.service.UserService;
-import co.com.poli.userservice.service.dto.UserDto;
+import co.com.poli.movieservice.helpers.ResponseBuild;
+import co.com.poli.movieservice.helpers.Response;
+import co.com.poli.movieservice.persistence.entity.Movie;
+import co.com.poli.movieservice.service.MovieService;
+import co.com.poli.movieservice.service.dto.MovieDto;
 import lombok.RequiredArgsConstructor;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
@@ -16,40 +16,40 @@ import java.util.Map;
 import java.util.stream.Collectors;
 
 @RestController
-@RequestMapping("/users")
+@RequestMapping("/movies")
 @RequiredArgsConstructor
-public class UserController {
+public class MovieController {
 
-    private final UserService userService;
+    private final MovieService movieService;
     private final ResponseBuild builder;
 
     @PostMapping
-    public Response save(@Valid @RequestBody UserDto user, BindingResult result){
+    public Response save(@Valid @RequestBody MovieDto movieDto, BindingResult result){
         if(result.hasErrors()){
             return builder.failed(this.formatMessage(result));
         }
-        userService.save(user);
-        return builder.success(user);
+        movieService.save(movieDto);
+        return builder.success(movieDto);
     }
     @DeleteMapping("/{id}")
     public Response delete(@PathVariable("id") Long id){
-        User user = (User) findByID(id).getData();
+        Movie user = (Movie) findByID(id).getData();
         if(user==null){
             return builder.failed("Not found");
         }
-        userService.delete(user);
+        movieService.delete(user);
         return builder.success(user);
     }
 
     @GetMapping
     public Response findAll(){
-        return builder.success(userService.findAll());
+        return builder.success(movieService.findAll());
     }
 
 
     @GetMapping("/{id}")
     public Response findByID(@PathVariable("id") Long id){
-        return builder.success(userService.findById(id));
+        return builder.success(movieService.findById(id));
     }
 
     private List<Map<String, String>> formatMessage(BindingResult result) {

@@ -5,4 +5,7 @@ include "eureka-service"
 include "gateway-service"
 include "admin-service"
 include "user-service"
+include "movie-service"
+include "showtime-service"
+include "booking-service"
 
