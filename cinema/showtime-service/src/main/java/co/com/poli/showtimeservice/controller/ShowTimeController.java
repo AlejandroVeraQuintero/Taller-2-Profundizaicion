@@ -3,6 +3,7 @@ package co.com.poli.showtimeservice.controller;
 import co.com.poli.showtimeservice.helpers.ResponseBuild;
 import co.com.poli.showtimeservice.helpers.Response;
 import co.com.poli.showtimeservice.persistence.entity.ShowTime;
+import co.com.poli.showtimeservice.service.MovieItemService;
 import co.com.poli.showtimeservice.service.ShowTimeService;
 import co.com.poli.showtimeservice.service.dto.ShowTimeDto;
 import co.com.poli.showtimeservice.service.dto.ShowTimeUpdateDto;
@@ -21,6 +22,7 @@ import java.util.stream.Collectors;
 @RequiredArgsConstructor
 public class ShowTimeController {
     private final ShowTimeService showTimeService;
+    private final MovieItemService movieItemService;
     private final ResponseBuild builder;
 
     @PostMapping
@@ -49,6 +51,11 @@ public class ShowTimeController {
         return builder.success(showTimeService.findById(id));
     }
 
+    @GetMapping("/movieItem/{id}")
+    public Response findByMovieItemID(@PathVariable("id") Long id){
+        return builder.success(movieItemService.findById(id));
+    }
+    
     @PutMapping("/{id}")
     public  Response update(@PathVariable("id") Long id, @RequestBody ShowTimeUpdateDto showTimeDto){
         ShowTime showTime = (ShowTime) findByID(id).getData();

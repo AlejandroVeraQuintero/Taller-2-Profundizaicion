@@ -8,6 +8,7 @@ import co.com.poli.showtimeservice.service.dto.ShowTimeDto;
 import co.com.poli.showtimeservice.service.dto.ShowTimeUpdateDto;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
 
@@ -20,6 +21,7 @@ public class ShowTimeServiceImpl implements  ShowTimeService {
     private final ShowTimeUpdateDtoToTask showTimeUpdateDtoToTask;
 
     @Override
+    @Transactional(rollbackFor = Exception.class)
     public void save(ShowTimeDto showTimeDto) {
 
         ShowTime showTime = showTimeDtoToTask.map(showTimeDto);
@@ -28,11 +30,13 @@ public class ShowTimeServiceImpl implements  ShowTimeService {
     }
 
     @Override
+    @Transactional(rollbackFor = Exception.class)
     public void delete(ShowTime showTime) {
         showTimeRepository.delete(showTime);
     }
 
     @Override
+    @Transactional(rollbackFor = Exception.class)
     public void update(ShowTimeUpdateDto showTimeDto , Long id) {
         ShowTime showTime = showTimeUpdateDtoToTask.map(showTimeDto);
         showTime.setId(id);
@@ -40,11 +44,13 @@ public class ShowTimeServiceImpl implements  ShowTimeService {
     }
 
     @Override
+    @Transactional(readOnly = true)
     public List<ShowTime> findAll() {
         return  showTimeRepository.findAll();
     }
 
     @Override
+    @Transactional(readOnly = true)
     public ShowTime findById(Long id) {
         return showTimeRepository.findById(id).orElse(null);
     }

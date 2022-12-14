@@ -1,7 +1,6 @@
 package co.com.poli.movieservice.persistence.entity;
 
-import lombok.Getter;
-import lombok.Setter;
+import lombok.*;
 
 import javax.persistence.*;
 import javax.validation.constraints.Max;
@@ -14,6 +13,9 @@ import java.util.Objects;
 @Setter
 @Entity
 @Table(name = "movies")
+@Builder
+@AllArgsConstructor
+@NoArgsConstructor
 public class Movie {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)

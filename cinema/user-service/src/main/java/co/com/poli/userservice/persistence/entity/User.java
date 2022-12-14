@@ -1,7 +1,6 @@
 package co.com.poli.userservice.persistence.entity;
 
-import lombok.Getter;
-import lombok.Setter;
+import lombok.*;
 
 import javax.persistence.*;
 import javax.validation.constraints.NotEmpty;
@@ -11,6 +10,9 @@ import java.util.Objects;
 @Setter
 @Entity
 @Table(name = "users")
+@Builder
+@AllArgsConstructor
+@NoArgsConstructor
 public class User {
 
     @Id

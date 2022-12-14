@@ -2,8 +2,7 @@ package co.com.poli.bookingservice.persistence.entity;
 
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
-import lombok.Getter;
-import lombok.Setter;
+import lombok.*;
 
 import javax.persistence.*;
 import javax.validation.Valid;
@@ -15,6 +14,9 @@ import java.util.Objects;
 @Setter
 @Entity
 @Table(name = "bookings")
+@Builder
+@AllArgsConstructor
+@NoArgsConstructor
 public class Booking {
 
     @Id
